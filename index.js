@@ -1,7 +1,7 @@
 "use strict";
 const http = require('http');
 const path = require('path');
-
+const parser = require('./headersParser.js');
 const port = process.env.PORT || 3000;
 
 // Create Server object
@@ -22,13 +22,8 @@ const server = http.createServer((req, res) => {
 	} else if (req.url === '/whoami' || req.url === '/whoami/') {
 	    res.statusCode = 200;
 	    res.setHeader('Content-Type', 'application/json');
-	    res.end(JSON.stringify(
-		{
-		    ipaddress: 'TODO',
-		    language: req.headers['accept-language'].split(",")[0],
-		    software: req.headers['user-agent'].match(/\((.+?)\)/)[1]
-		}
-	    ));
+	    let responseBody = JSON.stringify(parser.basicInfo(req.headers));
+	    res.end(responseBody);
 	} else {
 	    res.statusCode = 404;
 	    res.end(`Cannot ${req.method} ${req.url}`);
