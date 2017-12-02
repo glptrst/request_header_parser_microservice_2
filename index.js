@@ -22,7 +22,7 @@ const server = http.createServer((req, res) => {
 	} else if (req.url === '/whoami' || req.url === '/whoami/') {
 	    res.statusCode = 200;
 	    res.setHeader('Content-Type', 'application/json');
-	    let responseBody = JSON.stringify(parser.basicInfo(req.headers));
+	    let responseBody = JSON.stringify(parser.basicInfo(req.headers, req.connection));
 	    res.end(responseBody);
 	} else {
 	    res.statusCode = 404;
