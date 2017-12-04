@@ -15,11 +15,7 @@ const server = http.createServer((req, res) => {
 
     // Accept only GET requests
     if (req.method === 'GET') {
-	if (req.url === '/') {
-	    res.statusCode = 200;
-	    res.setHeader('Content-Type', 'text/plain');
-	    res.end('Hello World');
-	} else if (req.url === '/whoami' || req.url === '/whoami/') {
+	if (req.url === '/api/whoami' || req.url === '/api/whoami/') {
 	    res.statusCode = 200;
 	    res.setHeader('Content-Type', 'application/json');
 	    let responseBody = JSON.stringify(parser.basicInfo(req.headers, req.connection));
